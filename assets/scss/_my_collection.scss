@@ -1,0 +1,39 @@
+.my-collection {
+  overflow-x: scroll;
+  display: flex;
+  padding-right: 1rem;
+  box-sizing: border-box;
+  .my-collection-item {
+    position: relative;
+    text-align: center;
+    width: 190px;
+    display: inline-block;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    p {
+      margin-bottom: 0;
+      margin-top: 1rem;
+    }
+    .remove-collection-item {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
+    .collection-item-info {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+    }
+    .my-collection-poster {
+      border-radius: 1rem;
+      max-height: 250px;
+      max-width: 150px;
+    }
+  }
+  .right-box {
+    position: relative;
+    margin-left: 1rem;
+    width: 15px;
+    visibility: hidden;
+  }
+}

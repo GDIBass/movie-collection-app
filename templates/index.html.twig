@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/movie_collection.css') }}" />
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        window.MOVIE_COLLECTION_PROPS={};
+    </script>
+    <script src="{{ asset('build/movie_collection.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <main id="movie-collection-app"/>
+{% endblock %}
