@@ -5,49 +5,75 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MovieRepository")
  * @ORM\Table(name="mc_movie")
+ * @Serializer\ExclusionPolicy("all")
  */
 class Movie
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
+     * @var int
+     *
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $title;
 
     /**
+     * @var |DateTime
+     *
      * @ORM\Column(type="datetime")
      */
     private $release_date;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="text")
      */
     private $overview;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $poster_path;
 
     /**
+     * @var Collection
+     *
      * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="movies")
      */
     private $users;
 
-    public function __construct()
+    /**
+     * Movie constructor.
+     * @param int    $id
+     * @param string $title
+     * @param        $release_date
+     * @param string $overview
+     * @param string $poster_path
+     */
+    public function __construct(int $id, string $title, $release_date, string $overview, string $poster_path)
     {
-        $this->users = new ArrayCollection();
+        $this->id           = $id;
+        $this->title        = $title;
+        $this->release_date = $release_date;
+        $this->overview     = $overview;
+        $this->poster_path  = $poster_path;
+        $this->users        = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -59,23 +85,9 @@ class Movie
         return $this->title;
     }
 
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
     public function getReleaseDate(): ?\DateTimeInterface
     {
         return $this->release_date;
-    }
-
-    public function setReleaseDate(\DateTimeInterface $release_date): self
-    {
-        $this->release_date = $release_date;
-
-        return $this;
     }
 
     public function getOverview(): ?string
@@ -83,28 +95,14 @@ class Movie
         return $this->overview;
     }
 
-    public function setOverview(string $overview): self
-    {
-        $this->overview = $overview;
-
-        return $this;
-    }
-
     public function getPosterPath(): ?string
     {
         return $this->poster_path;
     }
 
-    public function setPosterPath(?string $poster_path): self
-    {
-        $this->poster_path = $poster_path;
-
-        return $this;
-    }
-
     public function addUser(User $user): self
     {
-        if (!$this->users->contains($user)) {
+        if ( ! $this->users->contains($user) ) {
             $this->users[] = $user;
         }
 
@@ -113,7 +111,7 @@ class Movie
 
     public function removeUser(User $user): self
     {
-        if ($this->users->contains($user)) {
+        if ( $this->users->contains($user) ) {
             $this->users->removeElement($user);
         }
 
