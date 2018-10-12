@@ -18,6 +18,7 @@ class Movie
      * @var int
      *
      * @ORM\Column(type="integer")
+     * @ORM\Id
      */
     private $id;
 
@@ -52,7 +53,7 @@ class Movie
     /**
      * @var Collection
      *
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="movies")
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="movies")
      */
     private $users;
 

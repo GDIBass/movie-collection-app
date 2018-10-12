@@ -27,7 +27,7 @@ class User
     private $username;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Movie", mappedBy="users")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Movie", inversedBy="movies")
      */
     private $movies;
 
