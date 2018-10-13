@@ -2,18 +2,20 @@
 
 namespace App\Controller\Web;
 
+use App\Controller\BaseController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class MovieController extends AbstractController
+class MovieController extends BaseController
 {
     /**
      * @Route("/", name="movie")
      */
     public function index()
     {
+        $user = $this->getUser();
+
         return $this->render('index.html.twig', [
-            'controller_name' => 'MovieController',
+            'collection' => $user->getMovies(),
         ]);
     }
 }

@@ -6,9 +6,11 @@
 namespace App\Tests\Controller\Api;
 
 
+use App\Controller\Api\BaseApiController;
+use App\Entity\Movie;
 use PHPUnit\Framework\TestCase;
 
-class MovieControllerUnitTest extends TestCase
+class BaseApiControllerTest extends TestCase
 {
 
 }

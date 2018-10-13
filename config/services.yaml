@@ -15,6 +15,7 @@ services:
                             # fetching services directly from the container via $container->get() won't work.
                             # The best practice is to be explicit about your dependencies anyway.
         bind:
+            $dbApiKey: '%env(MOVIEDB_API_KEY)%'
             $debug: '%kernel.debug%'
 
     # makes classes in src/ available to be used as services

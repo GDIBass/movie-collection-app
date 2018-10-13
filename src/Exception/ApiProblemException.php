@@ -14,6 +14,7 @@ class ApiProblemException extends HttpException
 
     /**
      * ApiProblemException constructor.
+     *
      * @param ApiProblem $apiProblem
      * @param \Exception|null $previous
      * @param array $headers

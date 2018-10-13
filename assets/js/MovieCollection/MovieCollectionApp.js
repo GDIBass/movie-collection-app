@@ -11,8 +11,12 @@ export default class MovieCollectionApp extends Component {
     constructor(props) {
         super(props);
 
+        const { collection } = props;
+
         this.state = {
-            collection: []
+            collection      : collection,
+            search          : '',
+            searchResults   : null
         };
     }
 
@@ -24,7 +28,8 @@ export default class MovieCollectionApp extends Component {
                     <Grid>
                         <Row>
                             <Search
-
+                                search={ this.state.search }
+                                searchResults={ this.state.searchResults }
                             />
                         </Row>
                         <Row>
@@ -39,7 +44,9 @@ export default class MovieCollectionApp extends Component {
     }
 }
 
-MovieCollectionApp.propTypes = {};
-
+MovieCollectionApp
+    .propTypes = {
+    collection: PropTypes.array.isRequired
+};
 
 

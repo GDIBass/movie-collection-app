@@ -19,6 +19,8 @@ class Movie
      *
      * @ORM\Column(type="integer")
      * @ORM\Id
+     *
+     * @Serializer\Expose()
      */
     private $id;
 
@@ -26,13 +28,18 @@ class Movie
      * @var string
      *
      * @ORM\Column(type="string", length=255)
+     *
+     * @Serializer\Expose()
      */
     private $title;
 
     /**
-     * @var |DateTime
+     * @var |Date
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
+     *
+     * @Serializer\Expose()
+     * @Serializer\Type("DateTime<'Y-m-d'>")
      */
     private $release_date;
 
@@ -40,6 +47,8 @@ class Movie
      * @var string
      *
      * @ORM\Column(type="text")
+     *
+     * @Serializer\Expose()
      */
     private $overview;
 
@@ -47,6 +56,8 @@ class Movie
      * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @Serializer\Expose()
      */
     private $poster_path;
 

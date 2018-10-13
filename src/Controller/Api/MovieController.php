@@ -3,41 +3,67 @@
 namespace App\Controller\Api;
 
 use App\Api\ApiProblem;
-use App\Exception\ApiProblemException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use App\Exception\QuickApiProblemException;
+use App\Service\MovieDb;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class MovieController
+ *
  * @package App\Controller\Api
+ *
  * @Route("/api/v1/movies")
  */
 class MovieController extends BaseApiController
 {
+
     /**
      * Gets a list of movies from the movieDB api
      *
-     * @Route("/", name="api_get_movies")
-     * @Method("GET")
+     * @Route("", name="api_get_movies", methods={"GET"})
      *
      * @param Request $request
+     *
+     * @return Response
      */
     public function getMoviesAction(Request $request)
     {
+        # Query Parameter is required for movie search
         $query = $request->query->get('q', null);
-
         if ( ! $query ) {
-            $apiProblem = new ApiProblem(
+            throw new QuickApiProblemException(
                 400,
-                ApiProblem::TYPE_INVALID_PARAMS
+                ApiProblem::TYPE_INVALID_PARAMS,
+                "You must submit a search query using field q, q=search"
             );
-            $apiProblem->set('details', "You must submit a search query using field q, q=search");
-            throw new ApiProblemException($apiProblem);
         }
 
-        echo "hello";
-        die;
-        // https://api.themoviedb.org/3/search/movie?api_key=e6710369433e584e8867dd1a4032b48c&language=en-US&page=1&include_adult=false&query=Little&page=1
+        $response = $this->movieDb->getMovieDbData(MovieDb::MOVIEDB_TYPE_SEARCH, $query);
+
+        // Trim unnecessary responses.  This would be more sophisticated with pagination
+        $response['results'] = array_slice($response['results'], 0, 10, false);
+        unset($response['page']);
+        unset($response['total_pages']);
+
+        return $this->createApiResponse($response, 200);
+    }
+
+    /**
+     * Gets a movie by ID
+     *
+     * @Route("/{id}", name="api_get_movie", methods={"GET"})
+     *
+     * @param                 $id
+     *
+     * @return Response
+     */
+    public function getMovieAction($id)
+    {
+        // If movie exists in db return it
+        $movie = $this->getMovieById($id);
+
+        return $this->createApiResponse($movie);
     }
 }

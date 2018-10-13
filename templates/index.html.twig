@@ -6,7 +6,9 @@
 
 {% block javascripts %}
     <script>
-        window.MOVIE_COLLECTION_PROPS={};
+        window.MOVIE_COLLECTION_PROPS={
+            collection: {{ render(url('api_get_collection'))|raw }}
+        };
     </script>
     <script src="{{ asset('build/movie_collection.js') }}"></script>
 {% endblock %}

@@ -8,6 +8,7 @@ namespace App\EventListener;
 use App\Api\ApiProblem;
 use App\Api\ApiProblemResponseFactory;
 use App\Exception\ApiProblemException;
+use App\Exception\QuickApiProblemException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
@@ -57,11 +58,9 @@ class ApiExceptionSubscriber implements EventSubscriberInterface
 
         $this->logException($e);
 
-        if ( $e instanceof ApiProblemException ) {
+        if ( $e instanceof ApiProblemException || $e instanceof QuickApiProblemException ) {
             $apiProblem = $e->getApiProblem();
         } else {
-
-
             $apiProblem = new ApiProblem(
                 $statusCode
             );

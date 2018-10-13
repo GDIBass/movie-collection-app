@@ -19,8 +19,10 @@ class ApiProblem
      * Error types
      */
 
+    const TYPE_INTERNAL_SERVER_ERROR       = 'internal_server_error';
     const TYPE_INVALID_PARAMS              = 'invalid_params';
     const TYPE_INVALID_REQUEST_BODY_FORMAT = 'invalid_body_format';
+    const TYPE_SERVICE_UNAVAILABLE         = 'service_unavailable';
     const TYPE_VALIDATION_ERROR            = 'validation_error';
 
 
@@ -30,8 +32,10 @@ class ApiProblem
      * @var array
      */
     private static $titles = array(
+        self::TYPE_INTERNAL_SERVER_ERROR       => 'Internal Server Error',
         self::TYPE_INVALID_PARAMS              => 'Invalid Parameters',
         self::TYPE_INVALID_REQUEST_BODY_FORMAT => 'Invalid JSON format sent',
+        self::TYPE_SERVICE_UNAVAILABLE         => 'Service is unavailable',
         self::TYPE_VALIDATION_ERROR            => 'There was a validation error',
     );
 

@@ -23,10 +23,10 @@ export default function NavMenu({}) {
                         </NavItem>
                     </Nav>
                     <Nav pullRight>
-                        <NavDropdown title="Neo">
-                            <MenuItem>Profile</MenuItem>
-                            <MenuItem>Settings</MenuItem>
-                            <MenuItem>Log Out</MenuItem>
+                        <NavDropdown id="user-dropdown" title="Neo">
+                            <MenuItem id="profile">Profile</MenuItem>
+                            <MenuItem id="settings">Settings</MenuItem>
+                            <MenuItem id="log-out">Log Out</MenuItem>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
