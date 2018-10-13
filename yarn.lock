@@ -2636,6 +2636,10 @@ follow-redirects@^1.0.0:
   dependencies:
     debug "=3.1.0"
 
+font-awesome-animation:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/font-awesome-animation/-/font-awesome-animation-0.2.1.tgz#38f1c323ce9baf0932a5dc5596ece762e42f58b0"
+
 font-awesome-sass@4:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/font-awesome-sass/-/font-awesome-sass-4.7.0.tgz#4eda693e915009ce00b228e0964dc5eca9bc34e1"

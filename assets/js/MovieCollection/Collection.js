@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes            from 'prop-types';
 import {
-    Button,
-    FormGroup,
-    InputGroup,
     Panel
 }                           from 'react-bootstrap';
 import CollectionItem       from "./CollectionItem";
+import SearchGroup          from "./SearchGroup";
 
 export default class Collection extends Component {
     constructor(props) {
@@ -17,9 +15,36 @@ export default class Collection extends Component {
             collectionSearchInput: ''
         };
 
+        this.handleClearSearch       = this.handleClearSearch.bind(this);
+        this.handleClickSearch       = this.handleClickSearch.bind(this);
         this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
     }
 
+    /**
+     * Clear the search field
+     */
+    handleClearSearch() {
+        this.setState({
+            collectionSearch     : '',
+            collectionSearchInput: ''
+
+        });
+    }
+
+    /**
+     * Proceed with the search
+     */
+    handleClickSearch() {
+        this.setState({
+            collectionSearch: this.state.collectionSearchInput
+        });
+    }
+
+    /**
+     * Handle search input change
+     *
+     * @param event
+     */
     handleSearchInputChange(event) {
         this.setState({
             collectionSearchInput: event.target.value
@@ -27,49 +52,45 @@ export default class Collection extends Component {
     }
 
     render() {
+        const { collection, handleShowDetails, handleToggleMovieInCollection, updating } = this.props;
 
-        const { collection } = this.props;
+        let filteredCollection = [...collection];
+
+        const search = this.state.collectionSearch;
+        if ( search !== '' ) {
+            filteredCollection = filteredCollection.filter(item => {
+                return (
+                    item.title.search(search) !== -1
+                    ||
+                    item.overview.search(search) !== -1
+                );
+            });
+        }
 
         return (
             <div id="my-collection">
                 <h2>My Collection</h2>
                 <Panel>
                     <Panel.Heading>
-                        <FormGroup className="mb-0">
-                            <InputGroup>
-                                <input
-                                    className="form-control"
-                                    onChange={ this.handleSearchInputChange }
-                                    placeholder="Search My Collection"
-                                    type="text"
-                                />
-                                <InputGroup.Button>
-                                    <Button
-                                        bsStyle="info"
-                                        title="Go!"
-                                        type="button"
-                                    >
-                                        <i className="fa fa-search"/>
-                                    </Button>
-                                </InputGroup.Button>
-                                <InputGroup.Button>
-                                    <Button
-                                        bsStyle="warning"
-                                        title="Clear Search"
-                                        type="button"
-                                    >
-                                        <i className="fa fa-eraser"/>
-                                    </Button>
-                                </InputGroup.Button>
-                            </InputGroup>
-                        </FormGroup>
+                        <SearchGroup
+                            className="mb-0"
+                            handleClearSearch={ this.handleClearSearch }
+                            handleClickSearch={ this.handleClickSearch }
+                            handleSearchInputChange={ this.handleSearchInputChange }
+                            search={ this.state.collectionSearch }
+                            searchInput={ this.state.collectionSearchInput }
+                            searchPlaceholder="Search My Collection"
+                        />
                     </Panel.Heading>
                     <Panel.Body className="my-collection">
                         {
-                            collection.map((collectionItem, key) =>
+                            filteredCollection.map((collectionItem, key) =>
                                 <CollectionItem
                                     collectionItem={ collectionItem }
+                                    handleShowDetails={ handleShowDetails }
+                                    handleToggleMovieInCollection={ handleToggleMovieInCollection }
                                     key={ key }
+                                    updating={ updating.indexOf(collectionItem.id) !== - 1 }
                                 />
                             )
                         }
@@ -82,5 +103,8 @@ export default class Collection extends Component {
 }
 
 Collection.propTypes = {
-    collection      : PropTypes.array.isRequired
+    collection                   : PropTypes.array.isRequired,
+    handleShowDetails            : PropTypes.func.isRequired,
+    handleToggleMovieInCollection: PropTypes.func.isRequired,
+    updating                     : PropTypes.array.isRequired
 };

@@ -3,5 +3,20 @@ body {
   padding-top: 50px;
 }
 
+.text-center {
+  text-align: center;
+}
+
+.img-placeholder-container {
+  border-radius: 1rem;
+}
+
+.img-placeholder {
+  fill:rgb(169,169,169);
+  stroke-width:3;
+  stroke:rgb(169,169,169);
+}
+
+@import '_details_modal.scss';
 @import 'my_collection';
 @import 'moviedb_search';

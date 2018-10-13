@@ -2,6 +2,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import '../scss/movie_collection.scss';
 import 'font-awesome-sass/assets/stylesheets/_font-awesome.scss';
+import 'font-awesome-animation/dist/font-awesome-animation.min.css';
 // Javascript
 import React              from 'react';
 import { render }         from 'react-dom';

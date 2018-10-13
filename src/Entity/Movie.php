@@ -76,7 +76,7 @@ class Movie
      * @param string $overview
      * @param string $poster_path
      */
-    public function __construct(int $id, string $title, $release_date, string $overview, string $poster_path)
+    public function __construct(int $id, string $title, $release_date, string $overview, ?string $poster_path)
     {
         $this->id           = $id;
         $this->title        = $title;

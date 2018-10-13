@@ -8,26 +8,52 @@ import {
 }                from 'react-bootstrap';
 
 export default function Result({
-                                   result
+                                   handleClickAddRemoveFromCollection,
+                                   inCollection,
+                                   result,
+                                   updating
                                }) {
+    let buttonText = ( inCollection ? "Remove From" : "Add To" ) + " My Collection";
+
+    let buttonView = updating ?
+                     (
+                         <span>
+                             <i className="fa fa-spinner faa-spin animated"/> { buttonText }
+                         </span>
+                     ) :
+                     buttonText;
+
+    let img;
+    if ( ! result.poster_path ) {
+        img = (
+            <svg width="150" height="200">
+                <rect width="150" height="200" className="img-placeholder"/>
+            </svg>
+        );
+    }
+    else {
+        img = ( <img
+            className="result-poster"
+            src={ "https://image.tmdb.org/t/p/w185_and_h278_bestv2/" + result.poster_path }
+        /> );
+    }
 
     return (
         <Well className="moviedb-result">
             <Row>
                 <Col xs={ 2 }>
-                    <img
-                        className="result-poster"
-                        src={ "https://image.tmdb.org/t/p/w185_and_h278_bestv2/" + result.poster_path }
-                    />
+                    { img }
                 </Col>
                 <Col xs={ 10 }>
                     <h3>{ result.title }</h3>
-                    <p>{ result.release_date }</p>
+                    <p>Released: { result.release_date }</p>
                     <p>{ result.overview }</p>
                     <Button
-                        bsStyle="danger"
+                        bsStyle={ inCollection ? 'danger' : 'success' }
+                        disabled={ updating }
+                        onClick={ () => handleClickAddRemoveFromCollection(result) }
                     >
-                        Remove From My Collection
+                        { buttonView }
                     </Button>
                 </Col>
             </Row>
@@ -36,5 +62,8 @@ export default function Result({
 }
 
 Result.propTypes = {
-    result: PropTypes.object.isRequired
+    handleClickAddRemoveFromCollection: PropTypes.func.isRequired,
+    inCollection                      : PropTypes.bool.isRequired,
+    result                            : PropTypes.object.isRequired,
+    updating                          : PropTypes.bool.isRequired
 };
