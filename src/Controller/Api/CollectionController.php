@@ -6,8 +6,6 @@
 namespace App\Controller\Api;
 
 use App\Entity\Movie;
-use App\Entity\User;
-use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -55,7 +53,7 @@ class CollectionController extends BaseApiController
 
         # If movie is not in database or it is not in user's collection return an error
         if ( ! $movie || ! $user->hasMovie($movie) ) {
-            $this->logger->warn(
+            $this->logger->info(
                 sprintf(
                     'User %s attempted to get movie %d but that movie was not in their collection',
                     $user->getUsername(),
@@ -88,7 +86,7 @@ class CollectionController extends BaseApiController
 
         # If the user has the movie we'll respond differently than if they are adding a new one
         if ( $user->hasMovie($movie) ) {
-            $this->logger->warn(
+            $this->logger->info(
                 sprintf(
                     "User %s attempted to add movie %d to their collection, but it was already present",
                     $user->getUsername(),
@@ -137,7 +135,7 @@ class CollectionController extends BaseApiController
 
         # If the user doesn't have the movie they're trying to remove then we'll respond differently
         if ( ! $movie || ! $user->hasMovie($movie) ) {
-            $this->logger->warn(
+            $this->logger->info(
                 sprintf(
                     "User %s attempted to remove movie %d to their collection, but it was already present",
                     $user->getUsername(),

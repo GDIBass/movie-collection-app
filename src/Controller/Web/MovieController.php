@@ -23,6 +23,5 @@ class MovieController extends BaseController
 
         return $this->render('index.html.twig', [
             'collection' => $user->getMovies(),
-        ]);
-    }
+        ]);    }
 }

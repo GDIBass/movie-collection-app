@@ -27,6 +27,8 @@ class BaseApiControllerTest extends KernelTestCase
 
     /**
      * @group legacy
+     *
+     * @throws \Exception
      */
     protected function setUp()
     {
@@ -189,4 +191,6 @@ class BaseApiControllerTest extends KernelTestCase
         $this->assertTrue($movie instanceof Movie);
         $this->assertSame(123, $movie->getId());
     }
+
+
 }

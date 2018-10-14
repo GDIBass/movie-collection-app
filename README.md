@@ -288,7 +288,7 @@ There are web and api test suites.  They can be run individually using the follo
 
 ## Using PHPUnit
 
-This one's easy...
+I've only built out tests for the Base API controller.  Most everything else is covered by behat's functional tests.
 
 ```
 ./vendor/bin/phpunit
