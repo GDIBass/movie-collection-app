@@ -161,7 +161,11 @@ composer install
 Step 4
 ----
 
-Run webpack.  This step differs between environments.
+Install yarn packages and Run webpack.  This step differs between environments.
+
+```
+yarn install --dev
+```
 
 Prod:
 
@@ -196,6 +200,8 @@ Ensure your .env file is set up,  This should have been done during the composer
 cp .env.dist .env
 vim .env
 ```
+
+Change the DB url, app secret and app environment.  Get your MovieDB Api (can be obtained for free) key and put it in MOVIEDB_API_KEY.
 
 Save changes
 
