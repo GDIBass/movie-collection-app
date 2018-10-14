@@ -41,7 +41,7 @@ function PanelBody({
     }
     else {
         return (
-            <Panel.Body className="moviedb-search text-center">
+            <Panel.Body className="moviedb-search text-center search-loading-movie">
                 <i className="fa fa-th-large fa-2x fa-spinner faa-spin animated"/>
             </Panel.Body>
         );
@@ -133,6 +133,7 @@ export default class Search extends Component {
                             search={ search }
                             searchInput={ this.state.searchInput }
                             searchPlaceholder={ "Search for Movies" }
+                            type={ "movie" }
                         />
                     </Panel.Heading>
                     <PanelBody

@@ -42,5 +42,10 @@ $checks = [
 
 foreach ( $checks as $string => $expected ) {
     $result = is_range($string);
-    echo sprintf("Checking %s : %s", $string, $result === $expected ? 'good' : 'bad') . PHP_EOL;
+    echo sprintf(
+            "Checking : %s : %s %s",
+            $string,
+            $result ? "good" : "bad",
+            $result === $expected ? '✔️' : '❌'
+        ) . PHP_EOL;
 }

@@ -55,6 +55,13 @@ class CollectionController extends BaseApiController
 
         # If movie is not in database or it is not in user's collection return an error
         if ( ! $movie || ! $user->hasMovie($movie) ) {
+            $this->logger->warn(
+                sprintf(
+                    'User %s attempted to get movie %d but that movie was not in their collection',
+                    $user->getUsername(),
+                    $movie ? $movie->getId() : '<null>'
+                )
+            );
             throw new NotFoundHttpException(
                 'Movie not found in collection.'
             );
@@ -79,7 +86,15 @@ class CollectionController extends BaseApiController
 
         $user = $this->getUser();
 
+        # If the user has the movie we'll respond differently than if they are adding a new one
         if ( $user->hasMovie($movie) ) {
+            $this->logger->warn(
+                sprintf(
+                    "User %s attempted to add movie %d to their collection, but it was already present",
+                    $user->getUsername(),
+                    $id
+                )
+            );
             return $this->createApiResponse(
                 [
                     'message' => "User already has movie."
@@ -90,6 +105,14 @@ class CollectionController extends BaseApiController
 
         $user->addMovie($movie);
         $this->em->flush();
+
+        $this->logger->info(
+            sprintf(
+                "User %s added movie %d to their collection",
+                $user->getUsername(),
+                $id
+            )
+        );
 
         return $this->createApiResponse(
             [
@@ -104,7 +127,7 @@ class CollectionController extends BaseApiController
      *
      * @Route("/{id}", name="api_delete_collection_movie", methods={"DELETE"})
      *
-     * @param Movie|null             $movie
+     * @param Movie|null $movie
      *
      * @return Response
      */
@@ -112,7 +135,15 @@ class CollectionController extends BaseApiController
     {
         $user = $this->getUser();
 
+        # If the user doesn't have the movie they're trying to remove then we'll respond differently
         if ( ! $movie || ! $user->hasMovie($movie) ) {
+            $this->logger->warn(
+                sprintf(
+                    "User %s attempted to remove movie %d to their collection, but it was already present",
+                    $user->getUsername(),
+                    $movie ? $movie->getId() : '<null>'
+                )
+            );
             throw new NotFoundHttpException(
                 'Movie not found in collection.'
             );
@@ -120,6 +151,14 @@ class CollectionController extends BaseApiController
 
         $user->removeMovie($movie);
         $this->em->flush();
+
+        $this->logger->info(
+            sprintf(
+                "User %s removed movie %d from their collection",
+                $user->getUsername(),
+                $movie->getId()
+            )
+        );
 
         return $this->createApiResponse(
             [

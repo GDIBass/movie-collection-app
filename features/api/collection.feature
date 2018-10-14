@@ -14,6 +14,7 @@ Feature: Provide the ability to add or remove Movies to a user's collection
     And the response should contain "The Lord of the Rings"
     And the response body is a JSON array of length 2
 
+    @t
   Scenario: Get Empty Collection
     When I request "/api/v1/collection" using HTTP GET
     Then the response code is 200

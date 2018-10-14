@@ -7,13 +7,23 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Traits\LoggerTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BaseController extends AbstractController
 {
+    use LoggerTrait;
+
     /** @var EntityManagerInterface */
     protected $em;
+
+    /**
+     * TODO: Remove once the token listener / user auth has been configured
+     *
+     * @var UserRepository
+     */
+    private $userRepository;
 
     /**
      * @param EntityManagerInterface $em
@@ -24,13 +34,6 @@ class BaseController extends AbstractController
     {
         $this->em = $em;
     }
-
-    /**
-     * TODO: Remove once the token listener / user auth has been configured
-     *
-     * @var UserRepository
-     */
-    private $userRepository;
 
     /**
      * TODO: Remove Once the token listener / user auth has been configured

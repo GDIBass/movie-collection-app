@@ -15,7 +15,7 @@
  */
 function is_palindrome(string $input, $excludePunctuation = true): bool
 {
-    # Remove spaces
+    # Remove non letters
     $regex = $excludePunctuation ? '/[.,\/#!$%\^&\*;:{}=\-_`~() ]/' : '/ /';
     $input = preg_replace($regex, '', $input);
     # Note, it's not clear whether or not punctuation should be evaluated.
@@ -53,7 +53,8 @@ $checks = [
 
 foreach ( $checks as $check ) {
     $result = is_palindrome($check->getString(), $check->getExcludePunctuation());
-    echo sprintf("Checking %s : %s %s",
+    echo sprintf("Checking %s : %s : %s %s",
+            $check->getExcludePunctuation() ? 'wo Punctuation' : 'w Punctuation',
             $check->getString(),
             $result ? 'true' : 'false',
             $result === $check->getExpectedResult() ? '✔️' : '❌'

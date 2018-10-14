@@ -80,6 +80,7 @@ export default class Collection extends Component {
                             search={ this.state.collectionSearch }
                             searchInput={ this.state.collectionSearchInput }
                             searchPlaceholder="Search My Collection"
+                            type={ "collection" }
                         />
                     </Panel.Heading>
                     <Panel.Body className="my-collection">

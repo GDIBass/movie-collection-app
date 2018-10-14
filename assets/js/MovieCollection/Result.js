@@ -39,7 +39,7 @@ export default function Result({
     }
 
     return (
-        <Well className="moviedb-result">
+        <Well className="moviedb-result" data-id={ result.id }>
             <Row>
                 <Col xs={ 2 }>
                     { img }
@@ -50,6 +50,8 @@ export default function Result({
                     <p>{ result.overview }</p>
                     <Button
                         bsStyle={ inCollection ? 'danger' : 'success' }
+                        className={ "toggle-collection search-toggle-collection-" + result.id + (updating ? ' data-updating' : '')}
+                        data-in-collection={ inCollection }
                         disabled={ updating }
                         onClick={ () => handleClickAddRemoveFromCollection(result) }
                     >

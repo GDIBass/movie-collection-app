@@ -8,7 +8,8 @@ export default function SearchGroup({
                                         handleSearchInputChange,
                                         search,
                                         searchInput,
-                                        searchPlaceholder
+                                        searchPlaceholder,
+                                        type
                                     }) {
 
     return (
@@ -19,7 +20,7 @@ export default function SearchGroup({
               }
         >
             <input
-                className="form-control"
+                className={ "form-control search-type-" + type }
                 onChange={ handleSearchInputChange }
                 placeholder={ searchPlaceholder }
                 type="text"
@@ -28,6 +29,7 @@ export default function SearchGroup({
             <InputGroup.Button>
                 <Button
                     bsStyle="info"
+                    className={ "search-go-" + type }
                     disabled={ search === searchInput }
                     onClick={ () => {
                         if ( search !== searchInput ) {
@@ -43,6 +45,7 @@ export default function SearchGroup({
             <InputGroup.Button>
                 <Button
                     bsStyle="warning"
+                    className={ "search-clear-" + type }
                     disabled={ search === '' }
                     onClick={ () => {
                         if ( search !== '' ) {
@@ -65,5 +68,6 @@ SearchGroup.propTypes = {
     handleSearchInputChange: PropTypes.func.isRequired,
     search                 : PropTypes.string.isRequired,
     searchInput            : PropTypes.string.isRequired,
-    searchPlaceholder      : PropTypes.string.isRequired
+    searchPlaceholder      : PropTypes.string.isRequired,
+    type                   : PropTypes.string.isRequired
 };

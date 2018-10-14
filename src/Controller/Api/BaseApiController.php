@@ -69,7 +69,6 @@ class BaseApiController extends BaseController
     protected function createApiResponse($data, $statusCode = 200): Response
     {
         $json = $this->serialize($data);
-
         $response = new Response($json, $statusCode);
         $response->headers->set('Content-Type', 'application/json');
 
@@ -89,13 +88,6 @@ class BaseApiController extends BaseController
         $context = new SerializationContext();
         $context->setSerializeNull(true);
 
-        $request = $this->get('request_stack')->getCurrentRequest();
-        $groups  = array('Default');
-        if ( $request->query->get('deep') ) {
-            $groups[] = 'deep';
-        }
-        $context->setGroups($groups);
-
         return $this->serializer->serialize($data, $format, $context);
     }
 
@@ -109,6 +101,7 @@ class BaseApiController extends BaseController
     protected function getMovieById($movieId)
     {
         $movie = $this->movieRepository->find($movieId);
+
         if ( $movie ) {
             return $movie;
         }

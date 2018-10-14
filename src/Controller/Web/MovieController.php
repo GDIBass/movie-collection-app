@@ -14,6 +14,13 @@ class MovieController extends BaseController
     {
         $user = $this->getUser();
 
+        $this->logger->info(
+            sprintf(
+                "User %s loaded the application",
+                $user->getUsername()
+            )
+        );
+
         return $this->render('index.html.twig', [
             'collection' => $user->getMovies(),
         ]);

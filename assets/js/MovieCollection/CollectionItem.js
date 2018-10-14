@@ -19,7 +19,8 @@ export default function CollectionItem({
                 <rect width="150" height="225" className="img-placeholder"/>
             </svg>
         );
-    } else {
+    }
+    else {
         img = (
             <img
                 className="my-collection-poster"
@@ -29,7 +30,7 @@ export default function CollectionItem({
     }
     return (
 
-        <Well className="my-collection-item">
+        <Well className="my-collection-item" data-id={ collectionItem.id }>
             { img }
             <p>{ collectionItem.title }</p>
             <Button
@@ -44,7 +45,10 @@ export default function CollectionItem({
             </Button>
             <Button
                 bsStyle="danger"
-                className="remove-collection-item"
+                className={
+                    "remove-collection-item toggle-collection collection-toggle-collection"
+                    + ( updating ? ' data-updating' : '' )
+                }
                 disabled={ updating }
                 onClick={ () => handleToggleMovieInCollection(collectionItem) }
                 title="Remove from my collection"

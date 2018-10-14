@@ -61,6 +61,8 @@ export default function DetailsModal({
             <Modal.Footer>
                 <Button
                     bsStyle={ inCollection ? 'danger' : 'success' }
+                    className={ "toggle-collection modal-toggle-collection" + ( updating ? ' data-updating' : '' )  }
+                    data-in-collection={ inCollection }
                     disabled={ updating }
                     onClick={ () => handleToggleMovieInCollection(details) }
                 >

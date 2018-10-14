@@ -12,7 +12,6 @@ Feature: Provide the ability to search for Movies from Movie DB
     Given I request "/api/v1/movies?q=Chicken Little" using HTTP GET
     Then the response code is 200
     And the response should contain "Chicken Little"
-    And the response should be in JSON
 
   @fixtures
   Scenario: Get Movie already in database
