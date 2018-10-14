@@ -10,15 +10,6 @@ import Api                  from '../Api/Api';
 import swal                 from 'sweetalert2';
 import DetailsModal         from "./DetailsModal";
 
-const loadingSwal = (title = null) => {
-    swal({
-        title            : title,
-        showConfirmButton: false,
-        allowOutsideClick: false,
-        html             : '<i class="fa fa-th-large fa-5 fa-spinner faa-spin animated" style="font-size:100px;"/>'
-    });
-};
-
 export default class MovieCollectionApp extends Component {
     constructor(props) {
         super(props);
@@ -172,7 +163,7 @@ export default class MovieCollectionApp extends Component {
                 searchLoading: false
             });
             swal({
-                type : "Error",
+                type : "error",
                 title: "Uh oh",
                 html : "Something went wrong, please try again later."
             });

@@ -1,9 +1,10 @@
-import React     from "react";
-import PropTypes from 'prop-types';
+import React             from "react";
+import PropTypes         from 'prop-types';
 import {
-    Button, Col,
+    Button,
     Modal
-}                from 'react-bootstrap';
+}                        from 'react-bootstrap';
+import InCollectionBadge from "./InCollectionBadge";
 
 export default function DetailsModal({
                                          details,
@@ -54,14 +55,17 @@ export default function DetailsModal({
                 <Modal.Title>{ details.title }</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                { img }
+                <div className="poster-container">
+                    { img }
+                    <InCollectionBadge inCollection={ inCollection }/>
+                </div>
                 <p>Released: { details.release_date }</p>
                 <p>{ details.overview }</p>
             </Modal.Body>
             <Modal.Footer>
                 <Button
                     bsStyle={ inCollection ? 'danger' : 'success' }
-                    className={ "toggle-collection modal-toggle-collection" + ( updating ? ' data-updating' : '' )  }
+                    className={ "toggle-collection modal-toggle-collection" + ( updating ? ' data-updating' : '' ) }
                     data-in-collection={ inCollection }
                     disabled={ updating }
                     onClick={ () => handleToggleMovieInCollection(details) }

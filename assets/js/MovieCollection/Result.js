@@ -6,6 +6,7 @@ import {
     Row,
     Well
 }                from 'react-bootstrap';
+import InCollectionBadge from './InCollectionBadge';
 
 export default function Result({
                                    handleClickAddRemoveFromCollection,
@@ -41,8 +42,9 @@ export default function Result({
     return (
         <Well className="moviedb-result" data-id={ result.id }>
             <Row>
-                <Col xs={ 2 }>
+                <Col xs={ 2 } className="poster-container">
                     { img }
+                    <InCollectionBadge inCollection={ inCollection } />
                 </Col>
                 <Col xs={ 10 }>
                     <h3>{ result.title }</h3>
@@ -50,7 +52,7 @@ export default function Result({
                     <p>{ result.overview }</p>
                     <Button
                         bsStyle={ inCollection ? 'danger' : 'success' }
-                        className={ "toggle-collection search-toggle-collection-" + result.id + (updating ? ' data-updating' : '')}
+                        className={ "toggle-collection search-toggle-collection-" + result.id + ( updating ? ' data-updating' : '' ) }
                         data-in-collection={ inCollection }
                         disabled={ updating }
                         onClick={ () => handleClickAddRemoveFromCollection(result) }

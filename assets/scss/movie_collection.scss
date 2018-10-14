@@ -17,6 +17,22 @@ body {
   stroke:rgb(256,256,266);
 }
 
+.poster-container {
+  position: relative;
+  .result-in-collection {
+    position: absolute;
+    top: -20px;
+    left: -1px;
+    color: lightgreen;
+  }
+}
+
+.modal-body {
+  .result-in-collection {
+    left: -20px;
+  }
+}
+
 @import '_details_modal.scss';
 @import 'my_collection';
 @import 'moviedb_search';

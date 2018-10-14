@@ -5,16 +5,17 @@
 
 namespace App\Service;
 
-
 use App\Api\ApiProblem;
-use App\Controller\Api\BaseApiController;
 use App\Exception\QuickApiProblemException;
+use App\Traits\LoggerTrait;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class MovieDb
 {
+    use LoggerTrait;
+
     public const MOVIEDB_TYPE_MOVIE  = 'movie';
     public const MOVIEDB_TYPE_SEARCH = 'search';
 
@@ -87,6 +88,7 @@ class MovieDb
                 ]
             );
         } catch ( RequestException $exception ) {
+            $this->logger->critical("Error fetching data from movieDB API",[$exception]);
             # If it's a 404 we want to display that
             if ( $exception->getCode() === 404 ) {
                 throw new NotFoundHttpException("MovieDB resource not found");
